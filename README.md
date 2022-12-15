@@ -1,4 +1,4 @@
-# huggingface-models-tutorial
+# Sunbird AI huggingface-models-tutorial
 This tutorial shows how to use the Sunbird AI models deployed on hugging face via the inference API.
 
 ## Create a HuggingFace account.
@@ -31,6 +31,49 @@ Some possible issues you could run into are:
 This means that the model is still loading, and you'll have to try the request again in 20 seconds.
 
 - Number of characters exceeded. The total number of characters in the free tier is 30,000.
+
+## Using the translation models
+There are two translation models:
+- Multiple to English model (https://huggingface.co/Sunbird/sunbird-mul-en): Translates from multiple languages (currently 5) to English.
+- English to Multiple model (https://huggingface.co/Sunbird/sunbird-en-mul): Translates from English to multiple languages.
+
+The `Multiple to English` following input json format (where `text` is the sentence you want to translate):
+```
+{
+    "inputs": "{text}"
+}
+```
+
+For the `English to Multiple` model, you need to prepend the `text` with a language code specifying the language to which you want to translate. i.e
+```
+{
+    "inputs": ">>lug<<How are you?"
+}
+```
+
+In this example, `>>lug<<` means Luganda. The table below shows the language codes for all the supported languages:
+
+|Language|Code|
+|--------|----|
+|Acholi|ach|
+|Ateso|teo|
+|Luganda|lug|
+|Lugbara|lgg|
+|Runyankole|nyn|
+
+The output for both models is in the following format:
+```
+[
+    {
+        "generated_text": "Oli otya?"
+    }
+]
+```
+
+## Example request in Postman
+
+![translate-postman](https://user-images.githubusercontent.com/26762336/207892984-c76b8bf4-4711-473c-84d2-2ef45326c6b1.png)
+
 
 
 
